@@ -11,7 +11,7 @@ class UserController extends MainController
 {
     public function IndexAction()
     {
-        return $this->setSuccess();
+        return $this->setError('Wrong request');
     }
 
     public function RegisterAction(){
@@ -22,5 +22,20 @@ class UserController extends MainController
     public function LoginAction(){
         print_r($this->vars);
         return $this->setSuccess();
+    }
+
+    public function UploadimageAction(){
+       //print_r($this->vars);
+
+        $data = $_POST['image'];
+        $name = $_POST['token'].time().'.png';
+
+        $res = file_put_contents('./'.$name,$data);
+        if($res)
+            return $this->setSuccess();
+        else
+            return $this->setError('Something went wrong');
+
+
     }
 }
