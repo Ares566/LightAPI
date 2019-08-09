@@ -1,12 +1,11 @@
 <?php
+
 /**
  * Routing routines
  * User: Renat Abaidulin
  * Date: 09.08.2019
  * Time: 13:50
  */
-
-
 class Router
 {
     private $aRouts = array();
@@ -48,6 +47,7 @@ class Router
 
         $aVars = Utility::query2Array($aParsedURI['query']);
 
+        //TODO: or __call ?
         if(!$action)
             $action = 'Index';
 
