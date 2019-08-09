@@ -5,7 +5,7 @@
     require_once 'model/Settings.php';
     require_once 'model/DB.php';
     require_once 'model/Utility.php';
-    require_once 'Controllers/Router.php';
+    require_once 'controllers/Router.php';
 
 
     define('API_PATH',$_SERVER['DOCUMENT_ROOT'].'/');
