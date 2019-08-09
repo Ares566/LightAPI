@@ -21,7 +21,7 @@ abstract class MainController
 
     public function __call($name, $arguments)
     {
-        $this->setError('Invalid request '.$name);
+        return $this->setError('Invalid request '.$name);
     }
 
     protected function setError($msg)

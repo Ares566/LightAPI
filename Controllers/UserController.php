@@ -16,5 +16,6 @@ class UserController extends MainController
 
     public function RegisterAction(){
         print_r($this->vars);
+        return $this->setSuccess();
     }
 }
