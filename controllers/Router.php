@@ -47,7 +47,7 @@ class Router
 
         $aVars = Utility::query2Array($aParsedURI['query']);
 
-        //TODO: or __call ?
+        //TODO: or redirect to __call
         if(!$action)
             $action = 'Index';
 
