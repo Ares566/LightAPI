@@ -28,7 +28,7 @@ class UserController extends MainController
        //print_r($this->vars);
 
         $data = $_POST['image'];
-        $name = $_POST['token'].time().'.png';
+        $name = $_POST['token'].'_'.time().'.png';
 
         $res = file_put_contents('./'.$name,$data);
         if($res)
