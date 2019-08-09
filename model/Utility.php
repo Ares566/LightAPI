@@ -51,4 +51,21 @@ class Utility
         if($client)
             $client->set($id,$data,$ct);
     }
+
+    /**
+     * Convert HTTP QUERY string to array
+     * @param string $query
+     * @return array
+     */
+    public static function query2Array($query = "")
+    {
+        $query = explode("&", $query);
+        $aRetArray = array();
+        foreach($query as $q){
+            list($key, $value) = explode("=", $q);
+            $aRetArray[$key] = $value;
+        }
+
+        return $aRetArray;
+    }
 }
