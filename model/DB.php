@@ -1,4 +1,6 @@
 <?php
+require_once 'Settings.php';
+
 /**
  * Class DB
  * Easy working with PDO
@@ -6,10 +8,8 @@
  * User: Renat Abaidulin
  * Date: 09.08.2019
  */
-require_once 'Settings.php';
-
-
-class DB {
+class DB
+{
     
     private $dbh;
 
