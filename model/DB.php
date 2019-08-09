@@ -8,5 +8,10 @@
 
 class DB
 {
+    private $damane;
 
+    public function __construct()
+    {
+
+    }
 }
