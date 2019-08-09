@@ -52,15 +52,13 @@ class Router
             $action = 'Index';
 
         try{
-
-            if(!file_exists(API_PATH.'/Controllers/'.$controller.'Controller.php'))
+            if(!file_exists(API_PATH.'/controllers/'.$controller.'Controller.php'))
                 throw new Exception("Controller '$controller' not found");
 
-            include_once API_PATH.'/Controllers/'.$controller.'Controller.php';
+            include_once API_PATH.'/controllers/'.$controller.'Controller.php';
             $rc = new ReflectionClass($controller.'Controller');
             $instance = $rc->newInstanceArgs(array($aVars));
             return $instance->{$action.'Action'}();
-
         }catch (Exception $e) {
             throw $e;
         }
