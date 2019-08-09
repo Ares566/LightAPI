@@ -58,7 +58,7 @@ class Router
 
             include_once API_PATH.'/Controllers/'.$controller.'Controller.php';
             $rc = new ReflectionClass($controller.'Controller');
-            $instance = $rc->newInstanceArgs($aVars);
+            $instance = $rc->newInstanceArgs(array($aVars));
             return $instance->{$action.'Action'}();
 
         }catch (Exception $e) {

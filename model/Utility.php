@@ -54,18 +54,17 @@ class Utility
 
     /**
      * Convert HTTP QUERY string to array
-     * @param string $query
+     * @param string $_query
      * @return array
      */
-    public static function query2Array($query = "")
+    public static function query2Array($_query = "")
     {
-        $query = explode("&", $query);
+        $query = explode("&", $_query);
         $aRetArray = array();
         foreach($query as $q){
             list($key, $value) = explode("=", $q);
             $aRetArray[$key] = $value;
         }
-
         return $aRetArray;
     }
 }

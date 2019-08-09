@@ -3,6 +3,7 @@
     error_reporting(E_ALL);
 
     require_once 'model/Settings.php';
+    require_once 'model/DB.php';
     require_once 'model/Utility.php';
     require_once 'Controllers/Router.php';
 
@@ -13,9 +14,10 @@
     //$oRouter->addRoute('/userinfo/getinfo/','User','Index');
     try{
         $result = $oRouter->route();
-        echo $result;
+        echo json_encode($result);
     }catch (Exception $e){
         //TODO: logging exception
+        // to private exceptions)))
         echo json_encode(array('result'=>'ERR','message'=>$e->getMessage()));
     }
 
