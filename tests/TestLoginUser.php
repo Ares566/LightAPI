@@ -13,11 +13,42 @@ define('JSON_API_SERVER_URL','http://df.abaidulin.com');
 
 class TestLoginUser extends TestCase
 {
+    // Try to login default user
     public function testLogin()
     {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/login/',array('pass'=>'','email'=>''));
+        $this->assertEquals($answer['result'], "OK");
+    }
 
-        echo $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/login/?w',array('pass'=>''));
+    // Try to reg
+    public function testReg()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/register/',array('email'=>''));
+        $this->assertEquals($answer['result'], "OK");
+    }
 
+    // Try to upload image
+    public function testUpload1()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/uploadimage/',array('token'=>'','image'=>''));
+        $this->assertEquals($answer['result'], "ERR");
+    }
+
+    public function testUpload2()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/uploadimage/',array('token'=>'wewew','image'=>''));
+        $this->assertEquals($answer['result'], "ERR");
+    }
+
+    public function testUpload3()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/uploadimage/',array('token'=>'','image'=>'wewwe'));
+        $this->assertEquals($answer['result'], "ERR");
+    }
+
+    public function testUploadSuc()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/uploadimage/',array('token'=>'er','image'=>'wewwe'));
         $this->assertEquals($answer['result'], "OK");
     }
 
@@ -28,7 +59,7 @@ class TestLoginUser extends TestCase
      * @param array $data array of post fields
      * @return array JSON decoded server response
      */
-    private function sendPost(String $url, array $data)
+    private function sendPost(String $url, array $data): array
     {
         $ch = curl_init();
 
@@ -39,6 +70,6 @@ class TestLoginUser extends TestCase
         $server_output = curl_exec($ch);
         curl_close ($ch);
 
-        return $server_output;
+        return json_decode($server_output, TRUE);
     }
 }

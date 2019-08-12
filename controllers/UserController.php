@@ -15,17 +15,21 @@ class UserController extends MainController
     }
 
     public function RegisterAction(){
-        print_r($this->vars);
         return $this->setSuccess();
     }
 
     public function LoginAction(){
-
         return $this->setSuccess();
     }
 
     public function UploadimageAction(){
-       //print_r($this->vars);
+
+        if(!(
+            array_key_exists('image',$_POST) &&
+            array_key_exists('token',$_POST) &&
+            $_POST['image'] && $_POST['token']
+        ))
+            return $this->setError('Image and/or Token are not specified');
 
         $data = $_POST['image'];
         $name = $_POST['token'].'_'.time().'.png';
