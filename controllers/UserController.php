@@ -20,7 +20,7 @@ class UserController extends MainController
     }
 
     public function LoginAction(){
-        print_r($this->vars);
+
         return $this->setSuccess();
     }
 

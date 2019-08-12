@@ -25,12 +25,13 @@ class Router
 
     /**
      * Pass action to the desired class -> method
-     *
+     * @param string $path to forced routing
+     * @return array API answer
      * @throws Exception
      */
-    public function route()
+    public function route($path = '')
     {
-        $aParsedURI = parse_url($_SERVER['REQUEST_URI']);
+        $aParsedURI = parse_url($path=='' ? $_SERVER['REQUEST_URI'] : $path);
         $clearURL = trim($aParsedURI['path'],"/");
         if(array_key_exists($clearURL,$this->aRouts)){
             $controller = $this->aRouts[$clearURL]['controller'];
@@ -42,7 +43,7 @@ class Router
         }
 
         if(!$controller){
-            throw new Exception("Controller not specified");
+            throw new Exception("Controller not specified ".$aParsedURI['path']);
         }
 
         $aVars = Utility::query2Array($aParsedURI['query']);
