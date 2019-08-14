@@ -8,8 +8,8 @@
     header("Content-Type: application/json");
 
     // TODO: remove after debug
-//    ini_set('error_reporting',1);
-//    error_reporting(E_ALL);
+    ini_set('error_reporting',1);
+    error_reporting(E_ALL);
 
 
 

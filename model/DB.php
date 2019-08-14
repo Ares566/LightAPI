@@ -252,7 +252,37 @@ class DB
         }
         return $dbconnector;
     }
-    
-    
+
+    public function createSafeSELECT($column = '*',$table,$aWhere = array(),$orderby='',$asc = TRUE, $limit=0,$offset=0)
+    {
+
+        if(!$table)
+            return FALSE;
+
+        $sql = 'SELECT ';
+        if($column == '*'||!is_array($column)||!count($column))
+            $sql .= $column;
+        else{
+            $sql .= implode(',', $column);
+        }
+        $sql .= ' FROM `'.$table.'` ';
+
+        if(count($aWhere)){
+            $aTVals = array();
+            foreach ($aWhere as $key => $value) {
+                $aTVals[] = "`$key`=".$this->dbh->quote($value);
+            }
+            $sql .= ' WHERE '.implode(' AND ', $aTVals);
+        }
+        if($orderby)
+            $sql .= ' ORDER BY `'.$orderby.'` '.($asc?'ASC':'DESC');
+
+        if($limit)
+            $sql .= ' LIMIT '.intval($limit);
+        if($offset)
+            $sql .= ' OFFSET '.intval($offset);
+
+        return $sql;
+    }
 
 }

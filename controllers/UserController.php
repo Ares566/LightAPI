@@ -7,6 +7,8 @@ require_once 'MainController.php';
  * Time: 15:19
  */
 
+require_once API_PATH.'model/User.php';
+
 class UserController extends MainController
 {
     public function IndexAction()
@@ -14,11 +16,27 @@ class UserController extends MainController
         return $this->setError('Wrong request');
     }
 
-    public function RegisterAction(){
-        return $this->setSuccess();
+    public function RegisterAction()
+    {
+        if(!(array_key_exists('email',$_POST) && $_POST['email'] && Utility::checkEmail($_POST['email']))){
+            return $this->setError('Invalid email address');
+        }
+        // email is valid
+        try {
+            $email = trim($_POST['email']);
+            $password = mt_rand(10000, 99999);
+            $oUser = User::addUser($email, $password);
+        }catch (Exception $e) {
+            throw $e;
+        }
+        // send registered message
+        $body = '<b>Congratulations!</b><br/>You have successfully registered in service<br/>Your password:<b>'.$password.'</b>';
+        Utility::sendEmail($oUser->email,'Registration in Service',$body);
+        return $this->setSuccess(array('token'=>$oUser->token),'Pls check your email(and Spam folder) for your password.');
     }
 
-    public function LoginAction(){
+    public function LoginAction()
+    {
         return $this->setSuccess();
     }
 

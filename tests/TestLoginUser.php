@@ -23,8 +23,14 @@ class TestLoginUser extends TestCase
     // Try to reg
     public function testReg()
     {
-        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/register/',array('email'=>''));
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/register/',array('email'=>'ares566@ya.ru'));
         $this->assertEquals($answer['result'], "OK");
+    }
+
+    public function testRegDbl()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/register/',array('email'=>'ares566@ya.ru'));
+        $this->assertEquals($answer['result'], "ERR");
     }
 
     // Try to upload image
