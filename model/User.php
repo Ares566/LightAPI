@@ -24,7 +24,15 @@ class User extends CoreData
         parent::__construct($id, $caching);
     }
 
-
+    /**
+     * Update last login date
+     */
+    public function setLastLogin()
+    {
+        $dba = DB::getAdaptor();
+        $this->lastlogin = date('Y-m-d H:i:s');
+        $dba->update('users',array('lastlogin'=>$this->lastlogin),array('id'=>$this->id));
+    }
     // STATIC FUNCTIONS
 
     /**
@@ -33,10 +41,10 @@ class User extends CoreData
      * @param string $email user email
      * @return bool|User
      */
-    public static function getUserByEmail(string $email)
+    public static function getUserByEmail($email)
     {
         $dba = DB::getAdaptor();
-        $iUID = $dba->getObject('SELECT id FROM user WHERE email='.$dba->quote($email));
+        $iUID = $dba->getOneValue('SELECT id FROM users WHERE email='.$dba->quote($email));
         if(!intval($iUID))
             return FALSE;
         return new User($iUID);

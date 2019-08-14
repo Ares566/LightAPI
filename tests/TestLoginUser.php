@@ -13,24 +13,37 @@ define('JSON_API_SERVER_URL','http://df.abaidulin.com');
 
 class TestLoginUser extends TestCase
 {
-    // Try to login default user
-    public function testLogin()
-    {
-        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/login/',array('pass'=>'','email'=>''));
-        $this->assertEquals($answer['result'], "OK");
-    }
+
+
 
     // Try to reg
-    public function testReg()
-    {
-        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/register/',array('email'=>'ares566@ya.ru'));
-        $this->assertEquals($answer['result'], "OK");
-    }
-
     public function testRegDbl()
     {
         $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/register/',array('email'=>'ares566@ya.ru'));
         $this->assertEquals($answer['result'], "ERR");
+    }
+
+    // Try to login default user
+    public function testLogin()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/login/',array('email'=>''));
+        $this->assertEquals($answer['result'], "ERR");
+    }
+    public function testLogin2()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/login/',array('email'=>'ares566@ya.ru'));
+        $this->assertEquals($answer['result'], "ERR");
+    }
+    public function testLogin3()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/login/',array('email'=>'ares566@ya.ru','pass'=>'12345'));
+        $this->assertEquals($answer['result'], "ERR");
+    }
+
+    public function testLogin4()
+    {
+        $answer = $this->sendPost(JSON_API_SERVER_URL.'/user/login/',array('email'=>'ares566@ya.ru','pass'=>'66614'));
+        $this->assertEquals($answer['result'], "OK");
     }
 
     // Try to upload image
