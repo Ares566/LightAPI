@@ -1,10 +1,11 @@
 <?php
-require_once 'Utility.php';
+
 
 class CoreData{
 
     protected $db_table = '';
     protected $table_id = 'id';
+
     function  __construct($id=NULL,$caching=FALSE) {
         $wherearray = array();
         if(!is_null($id)){

@@ -46,7 +46,7 @@ class Router
             throw new Exception("Controller not specified ".$aParsedURI['path']);
         }
 
-        $aVars = Utility::query2Array($aParsedURI['query']);
+        $aVars = isset($aParsedURI['query'])?Utility::query2Array($aParsedURI['query']):array();
 
         //TODO: or redirect to __call
         if(!$action)

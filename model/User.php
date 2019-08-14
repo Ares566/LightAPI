@@ -5,7 +5,7 @@
  *
  * Working with DB Table users
  */
-require_once 'CoreData.php';
+
 
 class User extends CoreData
 {
@@ -51,23 +51,23 @@ class User extends CoreData
      * @return bool|User
      * @throws Exception
      */
-    public static function addUser(string $email, string $password)
+    public static function addUser($email, $password)
     {
-        $oCUser = TRUE;//User::getUserByEmail($email);
+        $oCUser = User::getUserByEmail($email);
         if($oCUser)
             throw new Exception('Email is already have registered');
-//        $aUser = array(
-//
-//            'email' => $email,
-//            'password' => md5($password),
-//            'token'=>Utility::generateTicket()
-//        );
-//
-//        $oUser = self::newItem('users',$aUser);
-//        if($oUser && $oUser->id)
-//            return $oUser;
-//        else
-//            throw new Exception('Something went wrong during registration');
-//        return FALSE;
+        $aUser = array(
+
+            'email' => $email,
+            'password' => md5($password),
+            'token'=>Utility::generateTicket()
+        );
+
+        $oUser = self::newItem('users',$aUser);
+        if($oUser && $oUser->id)
+            return $oUser;
+        else
+            throw new Exception('Something went wrong during registration');
+        return FALSE;
     }
 }
